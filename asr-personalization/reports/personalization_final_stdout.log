@@ -1,0 +1,22 @@
+device=cuda test_speakers=['F03', 'M04', 'M05'] minutes=[5] num_epochs=3 outer_iterations=40
+Building personalized base (Whisper + generic adapter from checkpoints/generic_full/best merged) ...
+
+=== speaker F03 ===
+  [F03 generic 0min] n=300 WER=0.1694 CER=0.0937
+  [F03 5min naive] training on 135 utterances ...
+  [F03 5min naive] n=300 WER=0.1749 CER=0.0992
+  [F03 5min naive] unseen-text subset n=230 WER=0.1713
+
+=== speaker M04 ===
+  [M04 generic 0min] n=300 WER=0.3941 CER=0.2522
+  [M04 5min naive] training on 97 utterances ...
+  [M04 5min naive] n=300 WER=0.3941 CER=0.2997
+  [M04 5min naive] unseen-text subset n=201 WER=0.4456
+
+=== speaker M05 ===
+  [M05 generic 0min] n=300 WER=0.2335 CER=0.1444
+  [M05 5min naive] training on 93 utterances ...
+  [M05 5min naive] n=300 WER=0.2056 CER=0.1247
+  [M05 5min naive] unseen-text subset n=258 WER=0.1933
+
+Done. Results in reports\personalization_results_final.csv

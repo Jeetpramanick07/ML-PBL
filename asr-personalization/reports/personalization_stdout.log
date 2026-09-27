@@ -1,0 +1,37 @@
+device=cuda test_speakers=['F03', 'M04', 'M05'] minutes=[1, 2, 5, 10] num_epochs=3 outer_iterations=40
+Building personalized base (Whisper + Phase 3 generic adapter merged) ...
+Running Reptile meta-init (40 outer iterations over ['F04', 'M01', 'M02', 'M03']) ...
+  [meta-init] outer iter 5/40 (last task: M01/enroll_1min)
+  [meta-init] outer iter 10/40 (last task: M03/enroll_10min)
+  [meta-init] outer iter 15/40 (last task: M01/enroll_5min)
+  [meta-init] outer iter 20/40 (last task: F04/enroll_5min)
+  [meta-init] outer iter 25/40 (last task: M01/enroll_1min)
+  [meta-init] outer iter 30/40 (last task: F04/enroll_5min)
+  [meta-init] outer iter 35/40 (last task: F04/enroll_5min)
+  [meta-init] outer iter 40/40 (last task: M02/enroll_5min)
+Saved meta-init weights to checkpoints\personalized\meta_init\adapter_state.pt
+
+=== speaker F03 ===
+  [F03 generic 0min] n=300 WER=0.3554 CER=0.1976
+  [F03 1min naive] training on 23 utterances ...
+  [F03 1min naive] n=300 WER=0.3457 CER=0.1965
+  [F03 1min naive] unseen-text subset n=279 WER=0.3333
+  [F03 1min meta] training on 23 utterances ...
+  [F03 1min meta] n=300 WER=0.3375 CER=0.1951
+  [F03 1min meta] unseen-text subset n=279 WER=0.3217
+  [F03 2min naive] training on 51 utterances ...
+  [F03 2min naive] n=300 WER=0.3402 CER=0.2006
+  [F03 2min naive] unseen-text subset n=262 WER=0.3210
+  [F03 2min meta] training on 51 utterances ...
+  [F03 2min meta] n=300 WER=0.3402 CER=0.1978
+  [F03 2min meta] unseen-text subset n=262 WER=0.3299
+  [F03 5min naive] training on 135 utterances ...
+  [F03 5min naive] n=300 WER=0.3140 CER=0.1784
+  [F03 5min naive] unseen-text subset n=230 WER=0.3067
+  [F03 5min meta] training on 135 utterances ...
+  [F03 5min meta] n=300 WER=0.3113 CER=0.1748
+  [F03 5min meta] unseen-text subset n=230 WER=0.3067
+  [F03 10min naive] training on 265 utterances ...
+  [F03 10min naive] n=300 WER=0.2851 CER=0.1554
+  [F03 10min naive] unseen-text subset n=179 WER=0.2586
+  [F03 10min meta] training on 265 utterances ...

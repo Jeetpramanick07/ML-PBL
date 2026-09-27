@@ -1,0 +1,82 @@
+# =====================================================================
+# TORGO dataset — licensed research data. NEVER commit audio, transcripts
+# or the derived manifests. See README.md for download instructions.
+# =====================================================================
+asr-personalization/data/raw/
+asr-personalization/data/processed/
+*.wav
+*.flac
+*.mp3
+*.m4a
+*.ogg
+
+# =====================================================================
+# Model checkpoints — only the final artifacts the backend serves are
+# committed: generic_full/best (pooled LoRA, epoch 6) and
+# personalized_final/ (F03/M04/M05 adapters). Everything else stays local.
+# =====================================================================
+asr-personalization/checkpoints/*
+!asr-personalization/checkpoints/generic_full/
+asr-personalization/checkpoints/generic_full/*
+!asr-personalization/checkpoints/generic_full/best/
+!asr-personalization/checkpoints/personalized_final/
+
+# Per-utterance hypothesis files: contain TORGO reference transcripts, audio
+# paths and speaker metadata (i.e. dataset-derived) — kept local only. All
+# aggregate results (master_results_final.md, *_eval.md/json, leakage
+# breakdown, results CSVs, training logs) are committed.
+asr-personalization/reports/*_hyps_*.csv
+asr-personalization/reports/personalization_hyps*/
+asr-personalization/reports/fast_baseline_check.csv
+
+# Runtime demo-server logs (contain LAN IPs; not results evidence)
+asr-personalization/reports/api_*.log
+# Stale process-id files from old background runs
+asr-personalization/reports/.*_pid
+
+# =====================================================================
+# Python
+# =====================================================================
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.venv/
+venv/
+env/
+dist/
+wandb/
+
+# =====================================================================
+# Flutter / Android (asr_demo_app)
+# =====================================================================
+asr_demo_app/build/
+asr_demo_app/.dart_tool/
+asr_demo_app/.flutter-plugins
+asr_demo_app/.flutter-plugins-dependencies
+asr_demo_app/.packages
+asr_demo_app/android/.gradle/
+asr_demo_app/android/.kotlin/
+asr_demo_app/android/local.properties
+asr_demo_app/android/app/.cxx/
+asr_demo_app/android/app/debug/
+asr_demo_app/android/app/profile/
+asr_demo_app/android/app/release/
+asr_demo_app/android/key.properties
+*.jks
+*.keystore
+*.iml
+# Built APK is distributed via GitHub Releases, not git history
+asr_demo_app/release/
+*.apk
+*.aab
+
+# =====================================================================
+# Editors / OS / tooling
+# =====================================================================
+.vscode/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db

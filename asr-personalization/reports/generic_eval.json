@@ -1,0 +1,122 @@
+{
+  "model_name": "openai/whisper-small",
+  "adapter_dir": "checkpoints\\generic\\best",
+  "results": {
+    "pooled_test": {
+      "overall": {
+        "n_samples": 1005,
+        "wer": 0.2595,
+        "cer": 0.1541
+      },
+      "by_dysarthria_status": {
+        "dysarthric": {
+          "n_samples": 562,
+          "wer": 0.4062,
+          "cer": 0.2553
+        },
+        "healthy": {
+          "n_samples": 443,
+          "wer": 0.0823,
+          "cer": 0.0368
+        }
+      },
+      "by_severity": {
+        "mild": {
+          "n_samples": 179,
+          "wer": 0.2972,
+          "cer": 0.1827
+        },
+        "moderate": {
+          "n_samples": 134,
+          "wer": 0.2243,
+          "cer": 0.139
+        },
+        "severe": {
+          "n_samples": 249,
+          "wer": 0.6264,
+          "cer": 0.4007
+        }
+      }
+    },
+    "speaker_holdout_test": {
+      "overall": {
+        "n_samples": 4853,
+        "wer": 0.2624,
+        "cer": 0.1551
+      },
+      "by_dysarthria_status": {
+        "dysarthric": {
+          "n_samples": 2363,
+          "wer": 0.4531,
+          "cer": 0.2879
+        },
+        "healthy": {
+          "n_samples": 2490,
+          "wer": 0.0828,
+          "cer": 0.0328
+        }
+      },
+      "by_severity": {
+        "mild": {
+          "n_samples": 1103,
+          "wer": 0.3146,
+          "cer": 0.1786
+        },
+        "moderate": {
+          "n_samples": 591,
+          "wer": 0.423,
+          "cer": 0.2544
+        },
+        "severe": {
+          "n_samples": 669,
+          "wer": 0.7184,
+          "cer": 0.515
+        }
+      }
+    }
+  },
+  "per_speaker": {
+    "speaker_holdout_test": [
+      {
+        "speaker_id": "F03",
+        "dysarthria_status": "dysarthric",
+        "severity": "mild",
+        "n_samples": 1103,
+        "wer": 0.3146,
+        "cer": 0.1786
+      },
+      {
+        "speaker_id": "FC01",
+        "dysarthria_status": "healthy",
+        "severity": "",
+        "n_samples": 304,
+        "wer": 0.0865,
+        "cer": 0.037
+      },
+      {
+        "speaker_id": "FC02",
+        "dysarthria_status": "healthy",
+        "severity": "",
+        "n_samples": 2186,
+        "wer": 0.0823,
+        "cer": 0.0323
+      },
+      {
+        "speaker_id": "M04",
+        "dysarthria_status": "dysarthric",
+        "severity": "severe",
+        "n_samples": 669,
+        "wer": 0.7184,
+        "cer": 0.515
+      },
+      {
+        "speaker_id": "M05",
+        "dysarthria_status": "dysarthric",
+        "severity": "moderate",
+        "n_samples": 591,
+        "wer": 0.423,
+        "cer": 0.2544
+      }
+    ]
+  }
+}

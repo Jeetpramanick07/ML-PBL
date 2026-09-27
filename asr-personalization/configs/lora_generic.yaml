@@ -1,0 +1,31 @@
+# Phase 3: generic (pooled) LoRA fine-tune config. Overrides/extends
+# configs/base.yaml. Load with src.utils.config.load_config, merging onto the
+# base config (see src/training/train_generic.py).
+
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0.05
+  target_modules: [q_proj, v_proj]
+
+training:
+  # This environment is CPU-only (no CUDA). A timing smoke test measured
+  # ~9s/utterance for a Whisper-small LoRA forward+backward pass on this
+  # machine's CPU — the full pooled_train (8,033 utterances) would take
+  # ~20 hours PER EPOCH, which isn't tractable here. Per an explicit,
+  # user-confirmed scope-down, training uses a stratified subsample of
+  # pooled_train/pooled_val (stratified by dysarthria_status, same seed as
+  # everywhere else) instead of the full pooled split. This is a documented
+  # compute-budget compromise, not a methodology choice — re-run with
+  # train_sample_size/val_sample_size: null on a CUDA machine for the
+  # full-data result.
+  train_sample_size: 1200
+  val_sample_size: 150
+  batch_size: 4
+  num_epochs: 2
+  learning_rate: 1.0e-4
+  warmup_steps: 50
+  save_every_steps: 200
+  eval_every_steps: null # null = only at end of epoch
+
+checkpoints_dir: checkpoints/generic

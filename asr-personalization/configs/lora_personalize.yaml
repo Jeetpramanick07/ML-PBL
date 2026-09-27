@@ -1,0 +1,69 @@
+# Phase 4: few-shot per-speaker personalization config.
+#
+# Per-speaker adapters are trained on top of the Phase 3 generic model
+# (base Whisper + checkpoints/generic/best merged in), not on top of vanilla
+# Whisper — the whole point is testing whether personalization beats "one
+# model for everyone" on speakers the generic model has never seen.
+#
+# Rank is deliberately smaller than the generic fine-tune's (r=8) because
+# enrollment sets are tiny (1-10 minutes of audio); a lower-capacity adapter
+# is less prone to overfitting on so little data.
+
+# Leakage-free generic model (configs/lora_generic_unseen.yaml): trained without
+# any of the speaker_holdout_test speakers. Do NOT use checkpoints/generic/best
+# here — that one saw those speakers, which would invalidate the new-user claim.
+generic_adapter_dir: checkpoints/generic_unseen/best
+
+lora:
+  r: 4
+  alpha: 8
+  dropout: 0.05
+  target_modules: [q_proj, v_proj]
+
+enrollment:
+  minutes: [1, 2, 5, 10]
+  seed: 42
+  out_dir: data/processed/enrollment
+  # A speaker's true held-out remainder can be hundreds of utterances; capped
+  # here because eval_holdout is re-transcribed once per (size, strategy)
+  # combo (8 times per test speaker), and inference cost scales directly
+  # with this number. Was 100 while this ran on CPU; raised to 300 on the GPU
+  # for a tighter WER estimate (every test speaker has >300 held-out utterances
+  # after the largest enrollment set).
+  eval_max_samples: 300
+
+# Per-speaker fine-tuning hyperparameters (both naive and meta-initialized
+# strategies use the same training budget so the comparison isolates the
+# effect of initialization, not training length).
+personalize_training:
+  batch_size: 4
+  # Scoped down from 6 to 3 epochs per a user-confirmed compute-budget
+  # decision: on this CPU-only machine, the full grid (3 speakers x 4
+  # enrollment sizes x 2 strategies) at 6 epochs was estimated at 36+ hours;
+  # at 3 epochs it's ~18-19 hours. Re-run with a higher value on faster
+  # hardware for a more fully-converged result.
+  num_epochs: 3
+  learning_rate: 5.0e-4
+  warmup_steps: 5
+
+# Reptile-style first-order meta-learning: before per-speaker adaptation, a
+# shared LoRA initialization is meta-trained across several speaker_holdout
+# TRAIN speakers' enrollment-sized subsets (never the TEST speakers used for
+# the actual few-shot comparison). This is intentionally simple — a
+# defensible comparison, not a novel meta-learning algorithm.
+meta_init:
+  outer_iterations: 40
+  inner_steps: 6
+  inner_lr: 5.0e-4
+  meta_lr: 0.3
+  seed: 123
+  # speaker_holdout TRAIN speakers spanning mild/moderate/severe dysarthria.
+  speakers: [F04, M01, M02, M03]
+  checkpoint_path: checkpoints/personalized/meta_init/adapter_state.pt
+
+# speaker_holdout TEST dysarthric speakers spanning mild/moderate/severe —
+# the "new user" simulation set this whole phase is evaluated against.
+test_speakers: [F03, M04, M05]
+
+checkpoints_dir: checkpoints/personalized
+results_path: reports/personalization_results.csv

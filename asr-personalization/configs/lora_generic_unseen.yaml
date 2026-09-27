@@ -1,0 +1,34 @@
+# Phase 3 (leakage-free variant): generic LoRA fine-tune that has NEVER seen the
+# speaker_holdout_test speakers.
+#
+# Why this exists: configs/lora_generic.yaml trains on pooled_train, which is a
+# random utterance-level split over all 11 speakers, so it contains the five
+# speaker_holdout_test speakers (F03, FC01, FC02, M04, M05) — 51% of that run's
+# training utterances were theirs. Phase 4's few-shot claim needs a generic
+# model that has not heard the "new users", so this config drops those speakers
+# from both train and val before subsampling. Recipe is otherwise identical to
+# lora_generic.yaml (same LoRA, LR, epochs, subsample sizes, seed).
+#
+# The original adapter (checkpoints/generic) is kept untouched as the
+# "pooled, speaker-seen" arm; this one (checkpoints/generic_unseen) is the
+# base Phase 4 personalizes on top of.
+
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0.05
+  target_modules: [q_proj, v_proj]
+
+training:
+  exclude_speakers_of: speaker_holdout_test
+  train_sample_size: 1200
+  val_sample_size: 150
+  batch_size: 4
+  num_epochs: 2
+  learning_rate: 1.0e-4
+  warmup_steps: 50
+  save_every_steps: 200
+  eval_every_steps: null # null = only at end of epoch
+
+checkpoints_dir: checkpoints/generic_unseen
+train_log_path: reports/generic_unseen_train_log.csv

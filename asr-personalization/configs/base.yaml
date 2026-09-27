@@ -1,0 +1,25 @@
+# Base configuration for the ASR personalization project.
+# Later phases override specific keys via Hydra config composition
+# (e.g. configs/lora_generic.yaml) or CLI overrides (model.name=openai/whisper-medium).
+
+seed: 42
+
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  splits_dir: data/processed/splits
+  sample_rate: 16000
+
+model:
+  # Default checkpoint; override to openai/whisper-medium for larger experiments.
+  name: openai/whisper-small
+  language: en
+  task: transcribe
+
+training:
+  batch_size: 8
+  num_epochs: 10
+  learning_rate: 1.0e-4
+
+reports_dir: reports
+checkpoints_dir: checkpoints

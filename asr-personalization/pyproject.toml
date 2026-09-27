@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "asr-personalization"
+version = "0.1.0"
+description = "Few-shot personalized ASR for dysarthric speech, built on a dysarthria-aware Whisper base."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+dependencies = [
+    "torch",
+    "transformers",
+    "peft",
+    "datasets",
+    "librosa",
+    "soundfile",
+    "jiwer",
+    "omegaconf",
+    "hydra-core",
+    "pytest",
+    "matplotlib",
+    "pandas",
+    "numpy",
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
+]
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

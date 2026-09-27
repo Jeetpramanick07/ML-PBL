@@ -1,0 +1,21 @@
+﻿train=1200 val=150 device=cpu batch_size=4 num_epochs=2
+python.exe : 
+At line:1 char:401
++ ... FFERED='1'; & '<USER_HOME>\anaconda3\python.exe' -u -m sr ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading weights:   0%|          | 0/479 [00:00<?, ?it/s]
+Loading weights:  23%|██▎       | 112/479 [00:00<00:00, 1102.81it/s]
+Loading weights:  47%|████▋     | 223/479 [00:00<00:00, 1019.21it/s]
+Loading weights:  69%|██████▊   | 329/479 [00:00<00:00, 1035.94it/s]
+Loading weights:  91%|█████████ | 434/479 [00:00<00:00, 1033.18it/s]
+Loading weights: 100%|██████████| 479/479 [00:00<00:00, 1049.79it/s]
+trainable params: 884,736 || all params: 242,619,648 || trainable%: 0.3647
+Resumed from checkpoints\generic\last: epoch=0 global_step=200
+  epoch 0 step 201 loss 1.3579
+  epoch 0 step 210 loss 1.3881
+  epoch 0 step 220 loss 1.8949
+  epoch 0 step 230 loss 1.0051
+  epoch 0 step 240 loss 1.2331

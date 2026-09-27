@@ -1,0 +1,7 @@
+speaker_id,enrollment_minutes,strategy,n_samples,wer,cer,n_unseen_text,wer_unseen_text
+F03,0,generic,300,0.1694,0.0937,,
+F03,5,naive,300,0.1749,0.0992,230,0.1713
+M04,0,generic,300,0.3941,0.2522,,
+M04,5,naive,300,0.3941,0.2997,201,0.4456
+M05,0,generic,300,0.2335,0.1444,,
+M05,5,naive,300,0.2056,0.1247,258,0.1933

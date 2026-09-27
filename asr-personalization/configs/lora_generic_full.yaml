@@ -1,0 +1,54 @@
+# "Master" full-data pooled LoRA fine-tune — supersedes configs/lora_generic.yaml's
+# CPU-compute-budget subsample (train_sample_size: 1200, 2 epochs). This uses the
+# FULL pooled_train/pooled_val splits and lets validation WER (not just teacher-
+# forced loss — see train_generic.evaluate_wer) drive checkpointing and early
+# stopping, now that a CUDA GPU is available on this machine.
+#
+# No exclude_speakers_of here — this mirrors the ORIGINAL lora_generic.yaml's
+# scope (a random utterance-level split across all 11 speakers), not
+# lora_generic_unseen.yaml's leakage-free variant. That matters for anything
+# built on top of this checkpoint: pooled_train already contains OTHER
+# utterances from the speaker_holdout_test speakers (F03, FC01, FC02, M04,
+# M05), so a personalization experiment stacked on this checkpoint is not a
+# strictly "never heard this speaker's voice" test the way Phase 4's original
+# generic_unseen-based design was — flag this explicitly in any report that
+# builds personalization on top of checkpoints/generic_full.
+
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0.05
+  target_modules: [q_proj, v_proj]
+
+training:
+  # Compute-budget trade-off (explicit, user-confirmed): the full pooled_train
+  # (8032 rows) at ~42min/epoch made a 40-50 epoch budget a 10-34 HOUR job,
+  # which didn't fit the available time. Training now reads a stratified 40%
+  # subsample (3213 rows, ratio-preserved to within 0.01% — see
+  # data/processed/splits/pooled_train_subsample.csv, built by
+  # subsample_stratified(seed=42)) instead. Validation is UNCHANGED: still the
+  # full pooled_val.csv (1004 rows) every epoch, so early stopping/best-
+  # checkpoint selection still reflects the full validation signal.
+  train_file: pooled_train_subsample.csv
+  batch_size: 8
+  num_epochs: 45
+  learning_rate: 1.0e-4
+  warmup_steps: 200
+  save_every_steps: 500
+  eval_every_steps: null # null = only at end of epoch
+  checkpoint_metric: wer
+  early_stopping_patience: 5
+  # Hard wall-clock cap: 4.5 hours. If reached before early stopping
+  # triggers, training stops there and the best-so-far (by val_wer)
+  # checkpoint is used — reported as "time-capped, not converged", not as a
+  # naturally-concluded run. See train_generic.py's summary JSON output.
+  max_wall_clock_seconds: 16200
+  # Measured on this project's GPU: batch_size=8 fp16 uses ~1.5GB VRAM at
+  # ~2-3s/batch; batch_size=16 already overflows the 6GB budget into slow
+  # shared system memory and is SLOWER despite the larger batch — don't
+  # raise batch_size without re-measuring on whatever machine actually runs this.
+  mixed_precision: true
+
+checkpoints_dir: checkpoints/generic_full
+train_log_path: reports/generic_full_train_log.csv
+train_summary_path: reports/generic_full_train_summary.json

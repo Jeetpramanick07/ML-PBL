@@ -1,0 +1,28 @@
+train=1200 val=150 device=cpu batch_size=4 num_epochs=2
+Loading weights:   0%|          | 0/479 [00:00<?, ?it/s]Loading weights:  78%|#######8  | 374/479 [00:00<00:00, 3715.56it/s]Loading weights: 100%|##########| 479/479 [00:00<00:00, 3764.34it/s]
+trainable params: 884,736 || all params: 242,619,648 || trainable%: 0.3647
+  epoch 0 step 1 loss 8.3077
+  epoch 0 step 10 loss 8.1984
+  epoch 0 step 20 loss 7.4261
+  epoch 0 step 30 loss 4.7318
+  epoch 0 step 40 loss 4.1253
+  epoch 0 step 50 loss 5.5415
+  epoch 0 step 60 loss 3.9062
+  epoch 0 step 70 loss 3.3873
+  epoch 0 step 80 loss 3.6333
+  epoch 0 step 90 loss 3.2593
+  epoch 0 step 100 loss 2.6055
+  epoch 0 step 110 loss 1.9292
+  epoch 0 step 120 loss 1.7279
+  epoch 0 step 130 loss 2.2144
+  epoch 0 step 140 loss 1.8529
+  epoch 0 step 150 loss 1.5081
+  epoch 0 step 160 loss 1.5428
+  epoch 0 step 170 loss 1.0455
+  epoch 0 step 180 loss 1.9863
+  epoch 0 step 190 loss 2.5288
+  epoch 0 step 200 loss 1.6392
+  checkpointed to checkpoints\generic\last at step 200
+  epoch 0 step 210 loss 2.0417
+  epoch 0 step 220 loss 1.5675
+  epoch 0 step 230 loss 1.5629

@@ -1,0 +1,29 @@
+name: asr_demo_app
+description: >
+  Live-demo thin client for the asr-personalization project: records speech,
+  sends it to the FastAPI backend (see ../asr-personalization/src/api) for
+  Whisper+LoRA transcription, and drives the enrollment flow that shows the
+  personalization gain live. Not a shippable app — see docs/DEMO_RUNBOOK.md.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  record: ^7.1.1
+  http: ^1.2.1
+  shared_preferences: ^2.2.3
+  permission_handler: ^11.3.1
+  path_provider: ^2.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

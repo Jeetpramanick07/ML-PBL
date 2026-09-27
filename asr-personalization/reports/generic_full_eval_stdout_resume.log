@@ -1,0 +1,177 @@
+[pooled_test] resuming: 1005/1005 already transcribed, 0 remaining
+[pooled_test] all 1005 utterances already cached in reports\generic_full_hyps_pooled_test.csv
+[speaker_holdout_test] resuming: 2112/4853 already transcribed, 2741 remaining
+[speaker_holdout_test] transcribing 2741 utterances with openai/whisper-small on cuda ...
+  checkpointed 2144/4853 total (32/2741 this run)
+  checkpointed 2176/4853 total (64/2741 this run)
+  checkpointed 2208/4853 total (96/2741 this run)
+  checkpointed 2240/4853 total (128/2741 this run)
+  checkpointed 2272/4853 total (160/2741 this run)
+  checkpointed 2304/4853 total (192/2741 this run)
+  checkpointed 2336/4853 total (224/2741 this run)
+  checkpointed 2368/4853 total (256/2741 this run)
+  checkpointed 2400/4853 total (288/2741 this run)
+  checkpointed 2432/4853 total (320/2741 this run)
+  checkpointed 2464/4853 total (352/2741 this run)
+  checkpointed 2496/4853 total (384/2741 this run)
+  checkpointed 2528/4853 total (416/2741 this run)
+  checkpointed 2560/4853 total (448/2741 this run)
+  checkpointed 2592/4853 total (480/2741 this run)
+  checkpointed 2624/4853 total (512/2741 this run)
+  checkpointed 2656/4853 total (544/2741 this run)
+  checkpointed 2688/4853 total (576/2741 this run)
+  checkpointed 2720/4853 total (608/2741 this run)
+  checkpointed 2752/4853 total (640/2741 this run)
+  checkpointed 2784/4853 total (672/2741 this run)
+  checkpointed 2816/4853 total (704/2741 this run)
+  checkpointed 2848/4853 total (736/2741 this run)
+  checkpointed 2880/4853 total (768/2741 this run)
+  checkpointed 2912/4853 total (800/2741 this run)
+  checkpointed 2944/4853 total (832/2741 this run)
+  checkpointed 2976/4853 total (864/2741 this run)
+  checkpointed 3008/4853 total (896/2741 this run)
+  checkpointed 3040/4853 total (928/2741 this run)
+  checkpointed 3072/4853 total (960/2741 this run)
+  checkpointed 3104/4853 total (992/2741 this run)
+  checkpointed 3136/4853 total (1024/2741 this run)
+  checkpointed 3168/4853 total (1056/2741 this run)
+  checkpointed 3200/4853 total (1088/2741 this run)
+  checkpointed 3232/4853 total (1120/2741 this run)
+  checkpointed 3264/4853 total (1152/2741 this run)
+  checkpointed 3296/4853 total (1184/2741 this run)
+  checkpointed 3328/4853 total (1216/2741 this run)
+  checkpointed 3360/4853 total (1248/2741 this run)
+  checkpointed 3392/4853 total (1280/2741 this run)
+  checkpointed 3424/4853 total (1312/2741 this run)
+  checkpointed 3456/4853 total (1344/2741 this run)
+  checkpointed 3488/4853 total (1376/2741 this run)
+  checkpointed 3520/4853 total (1408/2741 this run)
+  checkpointed 3552/4853 total (1440/2741 this run)
+  checkpointed 3584/4853 total (1472/2741 this run)
+  checkpointed 3616/4853 total (1504/2741 this run)
+  checkpointed 3648/4853 total (1536/2741 this run)
+  checkpointed 3680/4853 total (1568/2741 this run)
+  checkpointed 3712/4853 total (1600/2741 this run)
+  checkpointed 3744/4853 total (1632/2741 this run)
+  checkpointed 3776/4853 total (1664/2741 this run)
+  checkpointed 3808/4853 total (1696/2741 this run)
+  checkpointed 3840/4853 total (1728/2741 this run)
+  checkpointed 3872/4853 total (1760/2741 this run)
+  checkpointed 3904/4853 total (1792/2741 this run)
+  checkpointed 3936/4853 total (1824/2741 this run)
+  checkpointed 3968/4853 total (1856/2741 this run)
+  checkpointed 4000/4853 total (1888/2741 this run)
+  checkpointed 4032/4853 total (1920/2741 this run)
+  checkpointed 4064/4853 total (1952/2741 this run)
+  checkpointed 4096/4853 total (1984/2741 this run)
+  checkpointed 4128/4853 total (2016/2741 this run)
+  checkpointed 4160/4853 total (2048/2741 this run)
+  checkpointed 4192/4853 total (2080/2741 this run)
+  checkpointed 4224/4853 total (2112/2741 this run)
+  checkpointed 4256/4853 total (2144/2741 this run)
+  checkpointed 4288/4853 total (2176/2741 this run)
+  checkpointed 4320/4853 total (2208/2741 this run)
+  checkpointed 4352/4853 total (2240/2741 this run)
+  checkpointed 4384/4853 total (2272/2741 this run)
+  checkpointed 4416/4853 total (2304/2741 this run)
+  checkpointed 4448/4853 total (2336/2741 this run)
+  checkpointed 4480/4853 total (2368/2741 this run)
+  checkpointed 4512/4853 total (2400/2741 this run)
+  checkpointed 4544/4853 total (2432/2741 this run)
+  checkpointed 4576/4853 total (2464/2741 this run)
+  checkpointed 4608/4853 total (2496/2741 this run)
+  checkpointed 4640/4853 total (2528/2741 this run)
+  checkpointed 4672/4853 total (2560/2741 this run)
+  checkpointed 4704/4853 total (2592/2741 this run)
+  checkpointed 4736/4853 total (2624/2741 this run)
+  checkpointed 4768/4853 total (2656/2741 this run)
+  checkpointed 4800/4853 total (2688/2741 this run)
+  checkpointed 4832/4853 total (2720/2741 this run)
+  checkpointed 4853/4853 total (2741/2741 this run)
+[speaker_holdout_test] done 2741 utterances in 641.2s (0.23s/utterance)
+
+Saved reports\generic_full_eval.json and reports\generic_full_eval.md
+
+# Generic pooled LoRA fine-tune evaluation — `openai/whisper-small` + `checkpoints\generic_full\best`
+
+## pooled_test
+
+### Overall
+
+| group | n | WER | CER |
+|---|---|---|---|
+| all | 1005 | 0.1682 | 0.0983 |
+
+### By dysarthria status
+
+| group | n | WER | CER |
+|---|---|---|---|
+| dysarthric | 562 | 0.2636 | 0.1617 |
+| healthy | 443 | 0.0528 | 0.0248 |
+
+### By severity (dysarthric speakers only)
+
+| group | n | WER | CER |
+|---|---|---|---|
+| mild | 179 | 0.2166 | 0.1281 |
+| moderate | 134 | 0.1372 | 0.0893 |
+| severe | 249 | 0.3919 | 0.2419 |
+
+## speaker_holdout_test
+
+### Overall
+
+| group | n | WER | CER |
+|---|---|---|---|
+| all | 4853 | 0.1315 | 0.0760 |
+
+### By dysarthria status
+
+| group | n | WER | CER |
+|---|---|---|---|
+| dysarthric | 2363 | 0.2328 | 0.1440 |
+| healthy | 2490 | 0.0361 | 0.0133 |
+
+### By severity (dysarthric speakers only)
+
+| group | n | WER | CER |
+|---|---|---|---|
+| mild | 1103 | 0.1596 | 0.0895 |
+| moderate | 591 | 0.2340 | 0.1466 |
+| severe | 669 | 0.3580 | 0.2400 |
+
+### Per held-out speaker
+
+| speaker_id | status | severity | n | WER | CER |
+|---|---|---|---|---|---|
+| F03 | dysarthric | mild | 1103 | 0.1596 | 0.0895 |
+| FC01 | healthy |  | 304 | 0.0235 | 0.0141 |
+| FC02 | healthy |  | 2186 | 0.0376 | 0.0132 |
+| M04 | dysarthric | severe | 669 | 0.3580 | 0.2400 |
+| M05 | dysarthric | moderate | 591 | 0.2340 | 0.1466 |
+
+
+# Baseline vs. generic fine-tuned model
+
+## pooled_test
+
+| arm | group | n | WER | CER |
+|---|---|---|---|---|
+| baseline (zero-shot) | overall | 1005 | 0.3516 | 0.2083 |
+| baseline (zero-shot) | dysarthric-only | 562 | 0.5537 | 0.3411 |
+| generic LoRA | overall | 1005 | 0.1682 | 0.0983 |
+| generic LoRA | dysarthric-only | 562 | 0.2636 | 0.1617 |
+
+Dysarthric-only WER reduction: 52.4% relative (0.5537 -> 0.2636).
+
+## speaker_holdout_test
+
+| arm | group | n | WER | CER |
+|---|---|---|---|---|
+| baseline (zero-shot) | overall | 4853 | 0.3344 | 0.2116 |
+| baseline (zero-shot) | dysarthric-only | 2363 | 0.5748 | 0.3911 |
+| generic LoRA | overall | 4853 | 0.1315 | 0.0760 |
+| generic LoRA | dysarthric-only | 2363 | 0.2328 | 0.1440 |
+
+Dysarthric-only WER reduction: 59.5% relative (0.5748 -> 0.2328).
+

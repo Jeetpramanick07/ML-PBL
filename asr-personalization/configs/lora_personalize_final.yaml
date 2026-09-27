@@ -1,0 +1,55 @@
+# "Master" personalization run — naive-only, 3 held-out speakers, 5-minute
+# enrollment only, built on top of checkpoints/generic_full/best (the
+# subsample-trained pooled model from configs/lora_generic_full.yaml), per an
+# explicit user-confirmed time-budget reduction from the original
+# configs/lora_personalize.yaml (naive+meta, 4 enrollment sizes, could also
+# cover FC01/FC02).
+#
+# METHODOLOGY NOTE: because generic_full was trained on pooled_train (or its
+# subsample), which already contains OTHER utterances from these same
+# speakers, this is not the strictly "never heard this speaker's voice"
+# comparison that the original lora_personalize.yaml (built on
+# checkpoints/generic_unseen/best) was designed to be. Report this plainly.
+
+generic_adapter_dir: checkpoints/generic_full/best
+
+lora:
+  r: 4
+  alpha: 8
+  dropout: 0.05
+  target_modules: [q_proj, v_proj]
+
+enrollment:
+  minutes: [5]
+  seed: 42
+  out_dir: data/processed/enrollment
+  eval_max_samples: 300
+
+personalize_training:
+  batch_size: 4
+  num_epochs: 3
+  learning_rate: 5.0e-4
+  warmup_steps: 5
+
+# Unused (no "meta" strategy in this run) but kept so load_experiment_config
+# doesn't need a separate schema; run_personalization_experiment.py's
+# --strategies naive skips the Reptile meta-init step entirely.
+meta_init:
+  outer_iterations: 40
+  inner_steps: 6
+  inner_lr: 5.0e-4
+  meta_lr: 0.3
+  seed: 123
+  speakers: [F04, M01, M02, M03]
+  checkpoint_path: checkpoints/personalized/meta_init/adapter_state.pt
+
+# Reduced from 5 to 3 held-out test speakers (per an explicit time-budget
+# trade-off) — kept to the 3 dysarthric speakers spanning mild/moderate/severe
+# (matches the original Phase 4 design's test_speakers), rather than adding
+# the 2 healthy held-out speakers (FC01, FC02), since the personalization
+# story is specifically about dysarthric speech.
+test_speakers: [F03, M04, M05]
+
+checkpoints_dir: checkpoints/personalized_final
+results_path: reports/personalization_results_final.csv
+hyps_dir: reports/personalization_hyps_final

@@ -1,0 +1,770 @@
+{
+  "holdout_test": {
+    "baseline": [
+      {
+        "group_by": "all",
+        "group": "all",
+        "subset": "all",
+        "n": 4853,
+        "wer": 0.3344,
+        "cer": 0.2116
+      },
+      {
+        "group_by": "all",
+        "group": "all",
+        "subset": "clean",
+        "n": 2804,
+        "wer": 0.3349,
+        "cer": 0.2076
+      },
+      {
+        "group_by": "all",
+        "group": "all",
+        "subset": "val_only",
+        "n": 475,
+        "wer": 0.3223,
+        "cer": 0.2523
+      },
+      {
+        "group_by": "all",
+        "group": "all",
+        "subset": "trained_on",
+        "n": 1574,
+        "wer": 0.3375,
+        "cer": 0.2059
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "dysarthric",
+        "subset": "all",
+        "n": 2363,
+        "wer": 0.5748,
+        "cer": 0.3911
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "dysarthric",
+        "subset": "clean",
+        "n": 1363,
+        "wer": 0.5752,
+        "cer": 0.383
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "dysarthric",
+        "subset": "val_only",
+        "n": 227,
+        "wer": 0.569,
+        "cer": 0.49
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "dysarthric",
+        "subset": "trained_on",
+        "n": 773,
+        "wer": 0.5758,
+        "cer": 0.3746
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "healthy",
+        "subset": "all",
+        "n": 2490,
+        "wer": 0.1081,
+        "cer": 0.0463
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "healthy",
+        "subset": "clean",
+        "n": 1441,
+        "wer": 0.109,
+        "cer": 0.0475
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "healthy",
+        "subset": "val_only",
+        "n": 248,
+        "wer": 0.0936,
+        "cer": 0.0404
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "healthy",
+        "subset": "trained_on",
+        "n": 801,
+        "wer": 0.1111,
+        "cer": 0.046
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "F03",
+        "subset": "all",
+        "n": 1103,
+        "wer": 0.3821,
+        "cer": 0.2244
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "F03",
+        "subset": "clean",
+        "n": 623,
+        "wer": 0.3779,
+        "cer": 0.2188
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "F03",
+        "subset": "val_only",
+        "n": 112,
+        "wer": 0.3345,
+        "cer": 0.1915
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "F03",
+        "subset": "trained_on",
+        "n": 368,
+        "wer": 0.4042,
+        "cer": 0.2437
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC01",
+        "subset": "all",
+        "n": 304,
+        "wer": 0.132,
+        "cer": 0.0707
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC01",
+        "subset": "clean",
+        "n": 170,
+        "wer": 0.1232,
+        "cer": 0.0667
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC01",
+        "subset": "val_only",
+        "n": 21,
+        "wer": 0.1,
+        "cer": 0.0591
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC01",
+        "subset": "trained_on",
+        "n": 113,
+        "wer": 0.1525,
+        "cer": 0.0796
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC02",
+        "subset": "all",
+        "n": 2186,
+        "wer": 0.1051,
+        "cer": 0.0435
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC02",
+        "subset": "clean",
+        "n": 1271,
+        "wer": 0.1073,
+        "cer": 0.0452
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC02",
+        "subset": "val_only",
+        "n": 227,
+        "wer": 0.0932,
+        "cer": 0.0393
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC02",
+        "subset": "trained_on",
+        "n": 688,
+        "wer": 0.1052,
+        "cer": 0.0415
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M04",
+        "subset": "all",
+        "n": 669,
+        "wer": 0.9261,
+        "cer": 0.6689
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M04",
+        "subset": "clean",
+        "n": 386,
+        "wer": 0.9599,
+        "cer": 0.6893
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M04",
+        "subset": "val_only",
+        "n": 65,
+        "wer": 0.994,
+        "cer": 0.7782
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M04",
+        "subset": "trained_on",
+        "n": 218,
+        "wer": 0.8462,
+        "cer": 0.5999
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M05",
+        "subset": "all",
+        "n": 591,
+        "wer": 0.5531,
+        "cer": 0.4162
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M05",
+        "subset": "clean",
+        "n": 354,
+        "wer": 0.535,
+        "cer": 0.3785
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M05",
+        "subset": "val_only",
+        "n": 50,
+        "wer": 0.5263,
+        "cer": 0.7195
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M05",
+        "subset": "trained_on",
+        "n": 187,
+        "wer": 0.6075,
+        "cer": 0.386
+      }
+    ],
+    "generic_full": [
+      {
+        "group_by": "all",
+        "group": "all",
+        "subset": "all",
+        "n": 4853,
+        "wer": 0.1315,
+        "cer": 0.076
+      },
+      {
+        "group_by": "all",
+        "group": "all",
+        "subset": "clean",
+        "n": 2804,
+        "wer": 0.1771,
+        "cer": 0.1025
+      },
+      {
+        "group_by": "all",
+        "group": "all",
+        "subset": "val_only",
+        "n": 475,
+        "wer": 0.1765,
+        "cer": 0.1012
+      },
+      {
+        "group_by": "all",
+        "group": "all",
+        "subset": "trained_on",
+        "n": 1574,
+        "wer": 0.0296,
+        "cer": 0.0171
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "dysarthric",
+        "subset": "all",
+        "n": 2363,
+        "wer": 0.2328,
+        "cer": 0.144
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "dysarthric",
+        "subset": "clean",
+        "n": 1363,
+        "wer": 0.3155,
+        "cer": 0.1957
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "dysarthric",
+        "subset": "val_only",
+        "n": 227,
+        "wer": 0.3131,
+        "cer": 0.1957
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "dysarthric",
+        "subset": "trained_on",
+        "n": 773,
+        "wer": 0.0496,
+        "cer": 0.0308
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "healthy",
+        "subset": "all",
+        "n": 2490,
+        "wer": 0.0361,
+        "cer": 0.0133
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "healthy",
+        "subset": "clean",
+        "n": 1441,
+        "wer": 0.047,
+        "cer": 0.0174
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "healthy",
+        "subset": "val_only",
+        "n": 248,
+        "wer": 0.0499,
+        "cer": 0.017
+      },
+      {
+        "group_by": "dysarthria_status",
+        "group": "healthy",
+        "subset": "trained_on",
+        "n": 801,
+        "wer": 0.0105,
+        "cer": 0.0041
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "F03",
+        "subset": "all",
+        "n": 1103,
+        "wer": 0.1596,
+        "cer": 0.0895
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "F03",
+        "subset": "clean",
+        "n": 623,
+        "wer": 0.2344,
+        "cer": 0.1322
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "F03",
+        "subset": "val_only",
+        "n": 112,
+        "wer": 0.1418,
+        "cer": 0.078
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "F03",
+        "subset": "trained_on",
+        "n": 368,
+        "wer": 0.0319,
+        "cer": 0.0177
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC01",
+        "subset": "all",
+        "n": 304,
+        "wer": 0.0235,
+        "cer": 0.0141
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC01",
+        "subset": "clean",
+        "n": 170,
+        "wer": 0.032,
+        "cer": 0.0195
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC01",
+        "subset": "val_only",
+        "n": 21,
+        "wer": 0.025,
+        "cer": 0.0215
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC01",
+        "subset": "trained_on",
+        "n": 113,
+        "wer": 0.0085,
+        "cer": 0.0035
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC02",
+        "subset": "all",
+        "n": 2186,
+        "wer": 0.0376,
+        "cer": 0.0132
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC02",
+        "subset": "clean",
+        "n": 1271,
+        "wer": 0.0489,
+        "cer": 0.0172
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC02",
+        "subset": "val_only",
+        "n": 227,
+        "wer": 0.0516,
+        "cer": 0.0167
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "FC02",
+        "subset": "trained_on",
+        "n": 688,
+        "wer": 0.0108,
+        "cer": 0.0041
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M04",
+        "subset": "all",
+        "n": 669,
+        "wer": 0.358,
+        "cer": 0.24
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M04",
+        "subset": "clean",
+        "n": 386,
+        "wer": 0.481,
+        "cer": 0.3237
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M04",
+        "subset": "val_only",
+        "n": 65,
+        "wer": 0.5808,
+        "cer": 0.3891
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M04",
+        "subset": "trained_on",
+        "n": 218,
+        "wer": 0.075,
+        "cer": 0.0504
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M05",
+        "subset": "all",
+        "n": 591,
+        "wer": 0.234,
+        "cer": 0.1466
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M05",
+        "subset": "clean",
+        "n": 354,
+        "wer": 0.2914,
+        "cer": 0.1845
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M05",
+        "subset": "val_only",
+        "n": 50,
+        "wer": 0.3289,
+        "cer": 0.1992
+      },
+      {
+        "group_by": "speaker_id",
+        "group": "M05",
+        "subset": "trained_on",
+        "n": 187,
+        "wer": 0.0565,
+        "cer": 0.0358
+      }
+    ]
+  },
+  "personalization": [
+    {
+      "speaker_id": "F03",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "all",
+      "n": 300,
+      "wer": 0.1694,
+      "cer": 0.0937
+    },
+    {
+      "speaker_id": "F03",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "clean",
+      "n": 174,
+      "wer": 0.2416,
+      "cer": 0.1356
+    },
+    {
+      "speaker_id": "F03",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "val_only",
+      "n": 28,
+      "wer": 0.1692,
+      "cer": 0.0967
+    },
+    {
+      "speaker_id": "F03",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "trained_on",
+      "n": 98,
+      "wer": 0.0187,
+      "cer": 0.0065
+    },
+    {
+      "speaker_id": "F03",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "all",
+      "n": 300,
+      "wer": 0.1749,
+      "cer": 0.0992
+    },
+    {
+      "speaker_id": "F03",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "clean",
+      "n": 174,
+      "wer": 0.2349,
+      "cer": 0.1338
+    },
+    {
+      "speaker_id": "F03",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "val_only",
+      "n": 28,
+      "wer": 0.1231,
+      "cer": 0.0785
+    },
+    {
+      "speaker_id": "F03",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "trained_on",
+      "n": 98,
+      "wer": 0.0654,
+      "cer": 0.0345
+    },
+    {
+      "speaker_id": "M04",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "all",
+      "n": 300,
+      "wer": 0.3941,
+      "cer": 0.2522
+    },
+    {
+      "speaker_id": "M04",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "clean",
+      "n": 172,
+      "wer": 0.5608,
+      "cer": 0.3636
+    },
+    {
+      "speaker_id": "M04",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "val_only",
+      "n": 32,
+      "wer": 0.5595,
+      "cer": 0.3511
+    },
+    {
+      "speaker_id": "M04",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "trained_on",
+      "n": 96,
+      "wer": 0.0841,
+      "cer": 0.0527
+    },
+    {
+      "speaker_id": "M04",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "all",
+      "n": 300,
+      "wer": 0.3941,
+      "cer": 0.2997
+    },
+    {
+      "speaker_id": "M04",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "clean",
+      "n": 172,
+      "wer": 0.5282,
+      "cer": 0.4228
+    },
+    {
+      "speaker_id": "M04",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "val_only",
+      "n": 32,
+      "wer": 0.6071,
+      "cer": 0.414
+    },
+    {
+      "speaker_id": "M04",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "trained_on",
+      "n": 96,
+      "wer": 0.115,
+      "cer": 0.0772
+    },
+    {
+      "speaker_id": "M05",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "all",
+      "n": 300,
+      "wer": 0.2335,
+      "cer": 0.1444
+    },
+    {
+      "speaker_id": "M05",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "clean",
+      "n": 169,
+      "wer": 0.2914,
+      "cer": 0.1839
+    },
+    {
+      "speaker_id": "M05",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "val_only",
+      "n": 28,
+      "wer": 0.3478,
+      "cer": 0.1952
+    },
+    {
+      "speaker_id": "M05",
+      "strategy": "generic",
+      "minutes": "0min",
+      "subset": "trained_on",
+      "n": 103,
+      "wer": 0.0489,
+      "cer": 0.0329
+    },
+    {
+      "speaker_id": "M05",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "all",
+      "n": 300,
+      "wer": 0.2056,
+      "cer": 0.1247
+    },
+    {
+      "speaker_id": "M05",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "clean",
+      "n": 169,
+      "wer": 0.2346,
+      "cer": 0.1395
+    },
+    {
+      "speaker_id": "M05",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "val_only",
+      "n": 28,
+      "wer": 0.3587,
+      "cer": 0.2343
+    },
+    {
+      "speaker_id": "M05",
+      "strategy": "naive",
+      "minutes": "5min",
+      "subset": "trained_on",
+      "n": 103,
+      "wer": 0.0652,
+      "cer": 0.0373
+    }
+  ],
+  "holdout_test_overlap_counts": {
+    "clean": 2804,
+    "trained_on": 1574,
+    "val_only": 475
+  },
+  "holdout_test_overlap_by_speaker": {
+    "F03": {
+      "clean": 623,
+      "trained_on": 368,
+      "val_only": 112
+    },
+    "FC01": {
+      "clean": 170,
+      "trained_on": 113,
+      "val_only": 21
+    },
+    "FC02": {
+      "clean": 1271,
+      "trained_on": 688,
+      "val_only": 227
+    },
+    "M04": {
+      "clean": 386,
+      "trained_on": 218,
+      "val_only": 65
+    },
+    "M05": {
+      "clean": 354,
+      "trained_on": 187,
+      "val_only": 50
+    }
+  }
+}
