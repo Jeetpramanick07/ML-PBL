@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../models/profile.dart';
 import '../services/api_client.dart';
@@ -32,11 +35,26 @@ class _HomeScreenState extends State<HomeScreen> {
   double? _latencyMs;
   String? _transcribeError;
 
+  final AudioPlayer _player = AudioPlayer();
+  StreamSubscription<void>? _playerCompleteSub;
+  bool _ttsLoading = false; // waiting on /speak
+  bool _ttsPlaying = false;
+
   @override
   void initState() {
     super.initState();
     _api = ApiClient(SettingsService());
+    _playerCompleteSub = _player.onPlayerComplete.listen((_) {
+      if (mounted) setState(() => _ttsPlaying = false);
+    });
     _refreshHealth();
+  }
+
+  @override
+  void dispose() {
+    _playerCompleteSub?.cancel();
+    _player.dispose();
+    super.dispose();
   }
 
   Future<void> _refreshHealth() async {
@@ -70,7 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _onRecorded(File clip) async {
+    await _player.stop(); // don't keep reading out the previous transcription
     setState(() {
+      _ttsPlaying = false;
       _busy = true;
       _transcribeError = null;
       _transcription = null;
@@ -92,22 +112,43 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  /// Fetches Piper speech for the current transcription from /speak and plays
+  /// it; tapping again while it plays stops it. The WAV is written to a temp
+  /// file and played as a DeviceFileSource rather than a BytesSource — on
+  /// Android, file playback goes through MediaPlayer's most standard path.
   Future<void> _playback() async {
-    if (_transcription == null) return;
+    final text = _transcription;
+    if (text == null || _ttsLoading) return;
+    if (_ttsPlaying) {
+      await _player.stop();
+      if (mounted) setState(() => _ttsPlaying = false);
+      return;
+    }
+
+    setState(() => _ttsLoading = true);
     try {
-      await _api.speak(_transcription!);
-      // Actual audio playback would need an audio-player package; out of
-      // scope here since Piper isn't wired up server-side yet (this call
-      // will currently always raise TtsUnavailableException below).
+      final wav = await _api.speak(text);
+      final dir = await getTemporaryDirectory();
+      final file = File('${dir.path}/tts_playback.wav');
+      await file.writeAsBytes(wav, flush: true);
+      await _player.stop();
+      await _player.play(DeviceFileSource(file.path, mimeType: 'audio/wav'));
+      if (mounted) setState(() => _ttsPlaying = true);
     } on TtsUnavailableException catch (e) {
-      _showSnack(e.message);
+      _showSnack('Text-to-speech is unavailable: ${e.message}');
+    } on ApiException catch (e) {
+      // e.g. a 400 "Text contains nothing speakable." for an empty/garbled transcription
+      _showSnack("Couldn't play back: ${e.message}");
     } on Object catch (e) {
-      _showSnack(e.toString());
+      _showSnack('Audio playback failed on this device: $e');
+    } finally {
+      if (mounted) setState(() => _ttsLoading = false);
     }
   }
 
   void _showSnack(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg), duration: const Duration(seconds: 4)));
   }
 
   @override
@@ -220,9 +261,11 @@ class _HomeScreenState extends State<HomeScreen> {
         Text('model: $_modelUsed  ·  ${_latencyMs?.toStringAsFixed(0)} ms', style: const TextStyle(color: Colors.black54)),
         const SizedBox(height: 16),
         OutlinedButton.icon(
-          onPressed: _playback,
-          icon: const Icon(Icons.volume_up),
-          label: const Text('Play back (TTS)'),
+          onPressed: _ttsLoading ? null : _playback,
+          icon: _ttsLoading
+              ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+              : Icon(_ttsPlaying ? Icons.stop : Icons.volume_up),
+          label: Text(_ttsLoading ? 'Generating speech...' : (_ttsPlaying ? 'Stop playback' : 'Play back (TTS)')),
         ),
       ],
     );

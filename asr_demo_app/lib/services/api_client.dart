@@ -6,6 +6,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 
@@ -19,9 +20,9 @@ class ApiException implements Exception {
 }
 
 /// Thrown specifically by [ApiClient.speak] when the backend's /speak
-/// returns 501 (Piper not wired up in this checkout) — distinct from a
-/// generic ApiException so the UI can show a soft "not available" message
-/// instead of an error banner.
+/// returns 503 (Piper voice missing/failed to load on the server) or 501
+/// (an older backend without TTS) — distinct from a generic ApiException so
+/// the UI can show a soft "not available" message instead of an error banner.
 class TtsUnavailableException implements Exception {
   final String message;
   TtsUnavailableException(this.message);
@@ -117,15 +118,23 @@ class ApiClient {
         return jsonDecode(resp.body) as Map<String, dynamic>;
       });
 
-  Future<List<int>> speak(String text) => _guard(() async {
+  /// Returns the WAV file bytes for [text]. A 400 (empty/unspeakable/too
+  /// long text) surfaces as an ApiException carrying the backend's message.
+  Future<Uint8List> speak(String text) => _guard(() async {
         final uri = await _uri('/speak');
         final resp = await http.post(uri, body: {'text': text}).timeout(_timeout);
-        if (resp.statusCode == 501) {
+        if (resp.statusCode == 503 || resp.statusCode == 501) {
           final body = _tryDecodeDetail(resp.body);
-          throw TtsUnavailableException(body ?? 'TTS playback is not available in this build.');
+          throw TtsUnavailableException(body ?? 'Text-to-speech is not available on the backend right now.');
         }
         _checkStatus(resp);
-        return resp.bodyBytes;
+        final bytes = resp.bodyBytes;
+        // Every WAV starts with "RIFF"; anything else means the address in
+        // Settings points at something that isn't this backend.
+        if (bytes.length < 44 || String.fromCharCodes(bytes.sublist(0, 4)) != 'RIFF') {
+          throw ApiException('Backend returned something that is not WAV audio.');
+        }
+        return bytes;
       });
 
   String? _tryDecodeDetail(String body) {

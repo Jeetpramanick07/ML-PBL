@@ -99,9 +99,7 @@ folders once, on your machine, where Flutter *is* installed.
 2. Tap the person-add icon to **enroll** a new speaker: enter a name, record
    the 1-3 short prompts shown on screen, tap **Start training**, and wait
    (~1 minute) for the personalized adapter to finish training server-side.
-3. **Play back (TTS)** currently always shows "not available" — Piper isn't
-   wired up in the backend yet (see `src/api/main.py`'s `/speak` docstring).
-   This is expected, not a bug.
+3. **Play back (TTS):** after a transcription, tap **Play back (TTS)**. The app fetches Piper speech from the backend's `/speak` and plays it through the phone speaker (via `audioplayers`, available since v1.1). Tap **Stop playback** to stop early. If the backend's TTS voice isn't loaded (503), or the transcription has nothing speakable (400), a short message appears instead, and transcription keeps working.
 
 ## Known limitations (by design, for a demo)
 
