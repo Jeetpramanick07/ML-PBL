@@ -200,5 +200,4 @@ class ModelManager:
                  "loaded_in_memory": p.model is not None}
                 for sid, p in sorted(self._profiles.items())
             ],
-            "tts_available": False,  # Piper isn't wired up in this repo (src/tts is empty) — see main.py /speak
-        }
+        }  # TTS status is added by main.py's /health (Piper is owned by the API layer, not this class)

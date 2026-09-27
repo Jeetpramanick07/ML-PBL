@@ -4,7 +4,7 @@ Speech recognition for people with dysarthria (motor-speech disorders that make 
 
 1. **Pooled adaptation.** One small adapter (0.36% of Whisper-small's parameters) fine-tuned on pooled dysarthric and healthy speech from the TORGO corpus.
 2. **Per-speaker personalization.** An extra adapter per speaker, trained on only **5 minutes** of that speaker's audio.
-3. **Live demo.** A FastAPI backend serves both, and a Flutter Android app records speech on a phone and shows the transcription and which model produced it.
+3. **Live demo.** A FastAPI backend serves both, plus Piper text-to-speech. A Flutter Android app records speech on a phone and shows the transcription and which model produced it.
 
 ## Final results
 
@@ -41,7 +41,8 @@ asr-personalization/          Python: data pipeline, training, evaluation, demo 
     data/                     TORGO loading, preprocessing, pooled + speaker-holdout splits
     models/  training/        Whisper + LoRA, pooled training, per-speaker personalization
     evaluation/  inference/   WER/CER metrics, report helpers, batched inference
-    api/                      FastAPI demo backend (/health, /transcribe, /enroll)
+    api/                      FastAPI demo backend (/health, /transcribe, /enroll, /speak)
+    tts/                      Piper text-to-speech (piper_synth.py)
   scripts/                    download_torgo, build_dataset, eval + personalization runners,
                               leakage_breakdown (train/test overlap audit)
   configs/                    YAML experiment configs (lora_generic_full.yaml = final model)
@@ -87,8 +88,12 @@ python -m venv .venv
 .venv\Scripts\activate                  # macOS/Linux: source .venv/bin/activate
 # For GPU, install the CUDA build of torch first: https://pytorch.org/get-started/locally/
 pip install -e .
+# Piper TTS voice (~63 MB, not committed) — needed only for /speak:
+python -m piper.download_voices --download-dir models/piper en_US-lessac-medium
 uvicorn src.api.main:app --host 0.0.0.0 --port 8000
 ```
+
+If the voice model is missing, the server still starts. `/health` shows `"tts_available": false`, and `/speak` returns 503. Transcription is unaffected.
 
 On first start, `openai/whisper-small` is downloaded from Hugging Face. Then check `http://127.0.0.1:8000/health`. It should report:
 - `"model_used_label": "pooled-lora:generic_full"`
@@ -100,6 +105,9 @@ API docs are at `http://127.0.0.1:8000/docs`. Example comparison (needs the TORG
 curl -F "file=@data/raw/torgo/M04/Session2/wav_headMic/0092.wav" http://127.0.0.1:8000/transcribe
 curl -F "file=@data/raw/torgo/M04/Session2/wav_headMic/0092.wav" -F "speaker_id=M04" http://127.0.0.1:8000/transcribe
 # reference "gadget": pooled -> "gatish", personalized:M04 -> "gadget"
+
+# Text-to-speech (Piper): returns a 22.05 kHz mono WAV
+curl -F "text=I would like a glass of water." http://127.0.0.1:8000/speak -o speech.wav
 ```
 
 The backend is a **local-network demo server**: plain HTTP, no auth, CORS open. Don't expose it to the internet.

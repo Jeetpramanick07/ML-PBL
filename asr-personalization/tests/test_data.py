@@ -123,7 +123,9 @@ def test_speaker_holdout_no_speaker_leakage_on_disk():
 def test_no_duplicate_audio_paths_across_splits_on_disk():
     manifests = _existing_split_manifests()
     for prefix in ("pooled", "speaker_holdout"):
-        relevant = {k: v for k, v in manifests.items() if k.startswith(prefix)}
+        # *_subsample manifests (e.g. pooled_train_subsample) are subsets of a
+        # split by design, not splits of their own.
+        relevant = {k: v for k, v in manifests.items() if k.startswith(prefix) and not k.endswith("_subsample")}
         if len(relevant) < 2:
             continue
         seen = set()

@@ -27,6 +27,7 @@ dependencies = [
     "fastapi",
     "uvicorn[standard]",
     "python-multipart",
+    "piper-tts>=1.8,<2",
 ]
 
 [tool.setuptools.packages.find]

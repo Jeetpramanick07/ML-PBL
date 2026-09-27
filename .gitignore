@@ -80,3 +80,6 @@ asr_demo_app/release/
 .claude/
 .DS_Store
 Thumbs.db
+
+# Piper TTS voice models (~63 MB .onnx each) — download per README, not committed
+asr-personalization/models/

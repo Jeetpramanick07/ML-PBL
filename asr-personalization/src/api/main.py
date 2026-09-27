@@ -10,9 +10,10 @@ It is explicitly NOT a production service:
 
 Consistency constraint (per the demo build plan): this API only ever uses
 zero-shot Whisper, pooled LoRA, and naive per-speaker personalization — the
-same capabilities the project report claims are done, not Future Scope. It
-never does confidence-based fallback/candidate ranking, meta-learned adapter
-init, or voice cloning.
+same capabilities the project report claims are done, not Future Scope — plus
+Piper TTS with a stock voice (src/tts/piper_synth.py) for /speak. It never
+does confidence-based fallback/candidate ranking, meta-learned adapter init,
+or voice cloning.
 
 Run with:
     uvicorn src.api.main:app --host 0.0.0.0 --port 8000
@@ -34,13 +35,14 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from src.api.audio_io import UnreadableAudioError, cleanup_tmp, load_uploaded_audio
 from src.api.enrollment import EnrollmentManager
 from src.api.model_manager import ModelManager
+from src.tts.piper_synth import InvalidTextError, PiperSynthesizer
 from src.utils.config import load_config
 
 REPORTS_DIR = PROJECT_ROOT / "reports"
@@ -72,6 +74,8 @@ def log_request(endpoint: str, **fields) -> None:
 class AppState:
     model_manager: ModelManager
     enrollment_manager: EnrollmentManager
+    tts: PiperSynthesizer | None = None
+    tts_unavailable_reason: str | None = None
 
 
 state = AppState()
@@ -83,6 +87,9 @@ async def lifespan(app: FastAPI):
     logger.info("Loading models (this happens once at startup, not per-request)...")
     state.model_manager = ModelManager(model_name=cfg.model.name, language=cfg.model.language, task=cfg.model.task)
     state.enrollment_manager = EnrollmentManager(state.model_manager)
+    # Never fatal: if the voice is missing/broken, /speak returns 503 and the
+    # transcription flow is unaffected.
+    state.tts, state.tts_unavailable_reason = PiperSynthesizer.try_load()
     try:
         local_ip = socket.gethostbyname(socket.gethostname())
     except OSError:
@@ -205,18 +212,30 @@ async def enroll_status(job_id: str):
     )
 
 
-@app.post("/speak")
-async def speak(text: str = Form(...)):
-    # Piper is not wired up in this repo yet (src/tts/ is empty) — this
-    # endpoint is scoped in the build plan as "optional, only if Piper is
-    # already working", so it's a clear, honest 501 rather than a fake stub.
-    raise HTTPException(
-        501,
-        "TTS playback is not available: Piper isn't set up in this project yet (src/tts is empty). "
-        "The demo's transcription flow works without it.",
-    )
+@app.post("/speak", response_class=Response, responses={200: {"content": {"audio/wav": {}}}})
+def speak(text: str = Form("")):
+    """Synthesize `text` with Piper and return a WAV file. Plain `def` (not
+    async) so FastAPI runs the CPU-bound synthesis in its threadpool instead
+    of blocking the event loop."""
+    if state.tts is None:
+        log_request("/speak", error="tts unavailable")
+        raise HTTPException(503, f"TTS is not available on this server: {state.tts_unavailable_reason}")
+    t0 = time.time()
+    try:
+        wav_bytes = state.tts.synthesize(text)
+    except InvalidTextError as exc:
+        log_request("/speak", n_chars=len(text or ""), error=str(exc))
+        raise HTTPException(400, str(exc)) from exc
+    latency_ms = (time.time() - t0) * 1000
+    log_request("/speak", n_chars=len(text), n_bytes=len(wav_bytes), latency_ms=latency_ms)
+    return Response(content=wav_bytes, media_type="audio/wav", headers={"X-Synthesis-Ms": f"{latency_ms:.0f}"})
 
 
 @app.get("/health")
 async def health():
-    return state.model_manager.health()
+    return {
+        **state.model_manager.health(),
+        "tts_available": state.tts is not None,
+        "tts_voice": state.tts.voice_path.name if state.tts else None,
+        "tts_unavailable_reason": state.tts_unavailable_reason,
+    }

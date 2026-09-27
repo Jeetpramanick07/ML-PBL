@@ -82,6 +82,16 @@ personalization results (from properly-sized enrollment sets, not a live
 30-second clip) are the real evidence; this flow demonstrates the mechanism
 working end-to-end, not a guaranteed live WER improvement.
 
+4. **Speech output (TTS) closes the loop.** The backend reads text aloud with **Piper TTS** (`en_US-lessac-medium`, a standard English voice, not the speaker's own). It runs locally, and a sentence takes about 0.1–1.5 s. Talking point: *"Recognized speech can be spoken back in a clear voice, for example to relay what a dysarthric speaker said to someone unfamiliar with their speech."*
+   - **On the phone (app v1.1+):** after a transcription, tap **Play back (TTS)**. The button shows "Generating speech..." and then plays the sentence through the phone speaker. Turn the phone's media volume up beforehand. v1.0 of the app can't play TTS, so check Settings → Apps shows version 1.1.0.
+   - **Backup, from the laptop:** open `http://127.0.0.1:8000/docs` → `POST /speak` → Try it out → type a sentence (for example, the transcription you just got) → Execute. Then click **Download file** and play it on the laptop speakers. Or from a terminal:
+     ```
+     curl -F "text=I would like a glass of water." http://127.0.0.1:8000/speak -o speech.wav
+     start speech.wav
+     ```
+
+**Fallback: if TTS doesn't load, the transcription flow works independently. Don't let a TTS failure block the main demo.** You'll see `tts_available: false` in `/health` and a 503 from `/speak`. Skip step 4 and carry on.
+
 ## 3. If WiFi fails
 
 Switch to USB tethering as a fallback network that doesn't depend on venue
@@ -105,6 +115,7 @@ out live in front of an audience for the first time.
 - [ ] Backend starts cleanly (`uvicorn ...`). In `/health`, `pooled_model.source_checkpoint` should read `checkpoints/generic_full/best` and `model_used_label` should read `pooled-lora:generic_full`. Any other checkpoint means `generic_full/best` is missing and it fell back to an early test model; `null` means it fell back to zero-shot. Check `reports/api_server.log` in either case.
 - [ ] `/health`'s `personalized_profiles` lists **F03, M04, M05** with `"source": "pretrained"`. If they're missing, `generic_full/best` didn't load (they're only registered on the base they were trained on), or `checkpoints/personalized_final/` is missing.
 - [ ] Both `curl` comparisons in the demo script (M04 "gadget", F03 "sleep") give the outputs listed there.
+- [ ] `/health` shows `"tts_available": true` and `"tts_voice": "en_US-lessac-medium.onnx"`. If it's false, `tts_unavailable_reason` says why, usually that the voice model isn't downloaded (see the README). Also check the `curl ... /speak -o speech.wav` example plays through the laptop speakers at a sensible volume.
 - [ ] Phone has the app installed, is connected to the same WiFi as the laptop, and Settings → Test connection succeeds.
 - [ ] USB tethering fallback has been tested at least once end-to-end
       (Section 3), not just read about.
